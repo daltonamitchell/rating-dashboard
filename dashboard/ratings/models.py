@@ -29,4 +29,4 @@ class Rating(models.Model):
     originality = models.IntegerField(default=0)
     submission = models.OneToOneField(Submission)
     def __str__(self):
-        return self.score
+        return self.submission.uuid.urn[9:] + ": " + str(self.score)
