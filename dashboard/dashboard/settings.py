@@ -28,6 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+# Set customer test runner with color output
+TEST_RUNNER = 'runner.MyTestRunner'
+
+
 # Application definition
 
 INSTALLED_APPS = (
