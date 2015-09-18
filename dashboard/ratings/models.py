@@ -7,7 +7,9 @@ class Submission(models.Model):
     application_date = models.DateTimeField()
     submission_date = models.DateTimeField()
     def __str__(self):
-        return self.uuid
+        uid = self.uuid.urn
+        return uid[9:]
+
 
 class Media(models.Model):
     filename = models.TextField()
@@ -25,6 +27,6 @@ class Rating(models.Model):
     effort = models.IntegerField(default=0)
     creativity = models.IntegerField(default=0)
     originality = models.IntegerField(default=0)
-    submission = models.ForeignKey(Submission)
+    submission = models.OneToOneField(Submission)
     def __str__(self):
         return self.score
