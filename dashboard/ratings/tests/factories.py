@@ -22,17 +22,17 @@ class MediaFactory(factory.DjangoModelFactory):
     class Meta:
         model = models.Media
     filename = factory.Faker('file_name')
-    filetype = factory.Faker('pystr', max_chars=200)
+    filetype = factory.Faker('pystr', max_chars=60)
     submission = factory.SubFactory(SubmissionFactory)
 
 class RatingFactory(factory.DjangoModelFactory):
     class Meta:
         model = models.Rating
     score = factory.Faker('pydecimal', left_digits=2, right_digits=1, positive=True)
-    code_quality = factory.Faker('pyint')
-    documentation = factory.Faker('pyint')
-    problem_solving = factory.Faker('pyint')
-    effort = factory.Faker('pyint')
-    creativity = factory.Faker('pyint')
-    originality = factory.Faker('pyint')
+    code_quality = random.randint(0,100)
+    documentation = random.randint(0,100)
+    problem_solving = random.randint(0,100)
+    effort = random.randint(0,100)
+    creativity = random.randint(0,100)
+    originality = random.randint(0,100)
     submission = factory.SubFactory(SubmissionFactory)
