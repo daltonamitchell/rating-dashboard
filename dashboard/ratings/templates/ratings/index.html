@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <title>View All submissions</title>
+    <style>
+      ul {
+        padding: 0;
+      }
+
+      li {
+        list-style-type: none;
+      }
+
+      .submission {
+        display: block;
+        background-color: LightGray;
+        margin-bottom: 20px;
+        padding: 10px;
+      }
+
+      .rating, .media {
+        display: inline-block;
+        position: relative;
+        top: 0;
+        width: 45%;
+        border: 1px solid black;
+        padding: 10px;
+      }
+
+      .rating {
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Top Submissions</h1>
+
+    {% if top_submissions_list %}
+      <ul>
+        {% for submission in top_submissions_list %}
+          <li class="submission">
+            <h1>{{ submission.uuid.urn }}</h1>
+            <p>Applied: {{ submission.application_date }}</p>
+            <p>Submitted: {{ submission.submission_date }}</p>
+
+            <div>
+              <div class="rating">
+                <ul>
+                  <li><strong>Score:</strong> {{ submission.rating.score }}</li>
+                  <li><strong>Code Quality:</strong> {{ submission.rating.code_quality }}</li>
+                  <li><strong>Documentation:</strong> {{ submission.rating.documentation }}</li>
+                  <li><strong>Problem Solving:</strong> {{ submission.rating.problem_solving }}</li>
+                  <li><strong>Effort:</strong> {{ submission.rating.effort }}</li>
+                  <li><strong>Creativity:</strong> {{ submission.rating.creativity }}</li>
+                  <li><strong>Originality:</strong> {{ submission.rating.originality }}</li>
+                </ul>
+              </div>
+              <div class="media">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Type</th>
+                      <th>File / URL</th>
+                    </tr>
+                  </thead>
+                  {% for file in submission.media_set.all %}
+                    <tr>
+                      <td>{{ file.filetype }}</td>
+                      <td>{{ file.filename }}</td>
+                    </tr>
+                  {% endfor %}
+                </table>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>There aren't any submissions yet.</p>
+    {% endif %}
+  </body>
+</html>
