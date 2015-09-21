@@ -1,0 +1,45 @@
+<h2>Rating Criteria</h2>
+
+<div id="rating-controls" class="panel panel-default">
+  <div class="panel-body">
+    <form method="post" action="/">
+      {% csrf_token %}
+      <input id="ideal-values" name="ideal_values" type="hidden">
+
+      <div class="form-group">
+        <label for="code-quality-range">Code Quality: <span class="range-display">5</span></label>
+        <input id="code-quality-range" type="range" value="5" min="1" max="10" steps="1">
+      </div>
+
+      <div class="form-group">
+        <label for="documentation-range">Documentation: <span class="range-display">5</span></label>
+        <input id="documentation-range" type="range" value="5" min="1" max="10" steps="1">
+      </div>
+
+      <div class="form-group">
+        <label for="problem-solving-range">Problem Solving: <span class="range-display">5</span></label>
+        <input id="problem-solving-range" type="range" value="5" min="1" max="10" steps="1">
+      </div>
+
+      <div class="form-group">
+        <label for="effort-range">Effort: <span class="range-display">5</span></label>
+        <input id="effort-range" type="range" value="5" min="1" max="10" steps="1">
+      </div>
+
+      <div class="form-group">
+        <label for="creativity-range">Creativity: <span class="range-display">5</span></label>
+        <input id="creativity-range" type="range" value="5" min="1" max="10" steps="1">
+      </div>
+
+      <div class="form-group">
+        <label for="originality-range">Originality: <span class="range-display">5</span></label>
+        <input id="originality-range" type="range" value="5" min="1" max="10" steps="1">
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary btn-block" type="submit">Change Rating Priority</button>
+        <button class="btn btn-default btn-block" type="reset">Reset</button>
+      </div>
+    </form>
+  </div>
+</div>

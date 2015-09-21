@@ -26,7 +26,7 @@ class IndexViewTestCase(TestCase):
 
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, submission.uuid.urn)
+        self.assertContains(response, 'Submission #{}'.format(submission.id))
         self.assertQuerysetEqual(response.context['top_submissions_list'], ['<Submission: ' + str(submission) + '>'])
 
     def test_index_view_with_ideal_values(self):

@@ -1,62 +1,38 @@
-<html>
-  <head>
-    <title>View All submissions</title>
-    <style>
-      ul {
-        padding: 0;
-      }
+{% extends "ratings/base.html" %}
 
-      li {
-        list-style-type: none;
-      }
+{% block title %}Top Submissions{% endblock title %}
 
-      .submission {
-        display: block;
-        background-color: LightGray;
-        margin-bottom: 20px;
-        padding: 10px;
-      }
+{% block content %}
+<h2 class="text-center">Top Submissions</h2>
 
-      .rating, .media {
-        display: inline-block;
-        position: relative;
-        top: 0;
-        width: 45%;
-        border: 1px solid black;
-        padding: 10px;
-      }
+{% if top_submissions_list %}
+  <ul>
+    {% for submission in top_submissions_list %}
+      <li class="submission">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h3>Submission #{{ submission.id }}</h3>
+            <h2>Score: {{ submission.rating.score }}</h2>
+            <!-- <p>Applied: {{ submission.application_date }}</p> -->
+            <!-- <p>Submitted: {{ submission.submission_date }}</p> -->
 
-      .rating {
-        margin-right: 10px;
-      }
-    </style>
-  </head>
-
-  <body>
-    <h1>Top Submissions</h1>
-
-    {% if top_submissions_list %}
-      <ul>
-        {% for submission in top_submissions_list %}
-          <li class="submission">
-            <h1>{{ submission.uuid.urn }}</h1>
-            <p>Applied: {{ submission.application_date }}</p>
-            <p>Submitted: {{ submission.submission_date }}</p>
+            {% load ratings_extras %}
 
             <div>
               <div class="rating">
+                {% with rating=submission.rating %}
                 <ul>
-                  <li><strong>Score:</strong> {{ submission.rating.score }}</li>
-                  <li><strong>Code Quality:</strong> {{ submission.rating.code_quality }}</li>
-                  <li><strong>Documentation:</strong> {{ submission.rating.documentation }}</li>
-                  <li><strong>Problem Solving:</strong> {{ submission.rating.problem_solving }}</li>
-                  <li><strong>Effort:</strong> {{ submission.rating.effort }}</li>
-                  <li><strong>Creativity:</strong> {{ submission.rating.creativity }}</li>
-                  <li><strong>Originality:</strong> {{ submission.rating.originality }}</li>
+                  <li>{% include "ratings/components/progress-bar.html" with label='Code Quality' value=rating.code_quality %}</li>
+                  <li>{% include "ratings/components/progress-bar.html" with label='Documentation' value=rating.documentation %}</li>
+                  <li>{% include "ratings/components/progress-bar.html" with label='Problem Solving' value=rating.problem_solving %}</li>
+                  <li>{% include "ratings/components/progress-bar.html" with label='Effort' value=rating.effort %}</li>
+                  <li>{% include "ratings/components/progress-bar.html" with label='Creativity' value=rating.creativity %}</li>
+                  <li>{% include "ratings/components/progress-bar.html" with label='Originality' value=rating.originality %}</li>
                 </ul>
+                {% endwith %}
               </div>
               <div class="media">
-                <table>
+                <table class="table">
                   <thead>
                     <tr>
                       <th>Type</th>
@@ -72,11 +48,17 @@
                 </table>
               </div>
             </div>
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>There aren't any submissions yet.</p>
-    {% endif %}
-  </body>
-</html>
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>There aren't any submissions yet.</p>
+{% endif %}
+
+{% endblock content %}
+
+{% block sidebar %}
+{% include "ratings/components/rating-controls.html" %}
+{% endblock sidebar %}

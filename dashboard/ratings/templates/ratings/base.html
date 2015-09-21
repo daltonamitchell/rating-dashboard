@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'ratings/css/normalize.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'ratings/css/styles.css' %}">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header"><a class="navbar-brand">GJ</a></div>
+
+        <div class="navbar-right">
+          <ul class="nav navbar-nav">
+            {% block navlinks %}{% endblock %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <main class="col-md-9">
+          {% block content %}{% endblock %}
+        </main>
+
+        <aside class="ideal-values col-md-3">
+          {% block sidebar %}{% endblock %}
+        </aside>
+      </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="{% static 'ratings/js/app.js' %}"></script>
+  </body>
+</html>

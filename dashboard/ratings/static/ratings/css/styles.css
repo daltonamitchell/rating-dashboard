@@ -1,0 +1,19 @@
+body {
+  background-color: #cccccc;
+}
+
+.navbar {
+  border-radius: 0;
+}
+
+ul {
+  padding-left: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+.rating > .progress-bar {
+  display: inline-block;
+}
