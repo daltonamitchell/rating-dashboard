@@ -34,6 +34,8 @@ class IndexViewTestCase(TestCase):
         If I pass in ideal_values the submissions should be score accorind to
         those values
         """
+        import json
+
         # Set and ideal value preferring code quality
         ideal = {
             'code_quality': 10,
@@ -60,7 +62,7 @@ class IndexViewTestCase(TestCase):
         MediaFactory(submission=r4.submission)
 
         # Bring up index to get top submissions list
-        response = self.client.get('/', {'ideal_values': ideal})
+        response = self.client.post('/', {'ideal_values': json.dumps(ideal)})
 
         # Sort ratings by score
         submissions = response.context['top_submissions_list']

@@ -10,8 +10,8 @@ def index(request):
     """Show all submissions"""
     # Set a default if ideals not passed in
     if request.method == 'POST' and 'ideal_values' in request.POST:
-        import ast
-        ideal_values = ast.literal_eval(request.POST.get('ideal_values')) # Convert string to dict
+        import json
+        ideal_values = json.loads(request.POST.get('ideal_values'))
     else:
         ideal_values = {
               'code_quality': 5,
@@ -40,6 +40,6 @@ def _rank_submission(submission, ideal_values):
     """
     subtotal = 0
     for key in ideal_values:
-        subtotal += (getattr(submission.rating, key) - ideal_values[key]) ** 2
-    submission.rating.score = 1 / sqrt(subtotal)
+        subtotal += (getattr(submission.rating, key) * (ideal_values[key] / 10)) ** 2
+    submission.rating.score = sqrt(subtotal)
     return submission
