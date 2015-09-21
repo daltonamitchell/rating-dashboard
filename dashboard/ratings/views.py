@@ -9,9 +9,9 @@ from django.http import HttpResponse
 def index(request):
     """Show all submissions"""
     # Set a default if ideals not passed in
-    if 'ideal_values' in request.GET:
+    if request.method == 'POST' and 'ideal_values' in request.POST:
         import ast
-        ideal_values = ast.literal_eval(request.GET.get('ideal_values')) # Convert string to dict
+        ideal_values = ast.literal_eval(request.POST.get('ideal_values')) # Convert string to dict
     else:
         ideal_values = {
               'code_quality': 5,
