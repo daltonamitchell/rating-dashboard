@@ -9,18 +9,18 @@ from django.http import HttpResponse
 def index(request):
     """Show all submissions"""
     # Set a default if ideals not passed in
-    try:
-        ideal_values = request.ideal_values
-    except AttributeError:
+    if 'ideal_values' in request.GET:
+        import ast
+        ideal_values = ast.literal_eval(request.GET.get('ideal_values')) # Convert string to dict
+    else:
         ideal_values = {
-              'code_quality': 50,
-              'documentation': 50,
-              'problem_solving': 50,
-              'effort': 50,
-              'creativity': 100,
-              'originality': 50,
+              'code_quality': 5,
+              'documentation': 5,
+              'problem_solving': 5,
+              'effort': 5,
+              'creativity': 5,
+              'originality': 5,
         }
-        pass
 
     top_submissions_list = Submission.objects.all()
     ranked_submissions_list = [_rank_submission(sub, ideal_values) for sub in top_submissions_list]
