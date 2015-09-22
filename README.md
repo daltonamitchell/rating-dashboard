@@ -12,7 +12,7 @@ To run this example you'll need to have [Python 3](http://www.python.org) instal
 
 2. Run `pip install requirements.txt`
 
-3. and then `python dashboard/manage.py runserver`.
+3. and then `python manage.py runserver`.
 
 4. Point your browser to `http://localhost:8000` and enjoy!
 
