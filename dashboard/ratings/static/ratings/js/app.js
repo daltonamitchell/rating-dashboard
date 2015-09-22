@@ -1,21 +1,30 @@
 $(document).ready(function() {
   // Update slider label on value change
-  $('input[type=range]').change(function(e) {
-    $('label[for=' + e.target.id + ']')
-      .find('span')
-      .text(e.target.value)
-  });
+  $('input[type=range]').change(updateControlLabel);
 
   // Update labels when form is reset
-  $('#rating-controls button[type=reset]').click(function(e) {
-    e.preventDefault();
-    $('#rating-controls input[type=range]').val(5);
-    $('#rating-controls label').find('span').text(5);
-  });
+  $('#rating-controls button[type=reset]').click(resetRatingForm);
 
   // Submit rating values
-  $('#rating-controls button[type=submit]').click(function(e) {
-    e.preventDefault()
+  $('#rating-controls button[type=submit]').click(submitIdealValues);
+
+  // Set default values before saving new submission
+  $('form[name=new-submission-form]').submit(setDefaults);
+
+  function updateControlLabel(event) {
+    $('label[for=' + event.target.id + ']')
+      .find('span')
+      .text(event.target.value)
+  }
+
+  function resetRatingForm(event) {
+    event.preventDefault();
+    $('#rating-controls input[type=range]').val(5);
+    $('#rating-controls label').find('span').text(5);
+  }
+
+  function submitIdealValues(event) {
+    event.preventDefault()
 
     // Holds ideal values to send back
     var values = {};
@@ -32,5 +41,20 @@ $(document).ready(function() {
     // Set value on hidden object & submit
     $('input#ideal-values').val( JSON.stringify(values) );
     $('#rating-controls').find('form').submit();
-  });
+  }
+
+  function setDefaults(event) {
+    // Stop form submission
+    event.preventDefault();
+
+    // Set a default value for all empty fields
+    $('form[name=new-submission-form] input').each(function() {
+      if ( !$(this).val() ) {
+        $(this).val(25)
+      }
+    });
+
+    // Now submit the form
+    event.target.submit()
+  }
 });

@@ -1,10 +1,9 @@
 from math import sqrt
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from .models import Submission
+from ratings.models import Submission
 
-from django.http import HttpResponse
 
 def index(request):
     """Show all submissions"""
@@ -26,6 +25,28 @@ def index(request):
     ranked_submissions_list = [_rank_submission(sub, ideal_values) for sub in top_submissions_list]
     context = {'top_submissions_list': ranked_submissions_list}
     return render(request, 'ratings/index.html', context)
+
+def create(request):
+    """Show the form for creating new submissions"""
+    return render(request, 'ratings/new.html', {})
+
+def store(request):
+    """Save a new submission"""
+    from ratings.tests.factories import SubmissionFactory, MediaFactory, RatingFactory
+
+    if request.method == 'POST':
+        submission = SubmissionFactory()
+        MediaFactory(submission=submission)
+        RatingFactory(score=0,
+                      code_quality=request.POST.get('code_quality'),
+                      documentation=request.POST.get('documentation'),
+                      problem_solving=request.POST.get('problem_solving'),
+                      effort=request.POST.get('effort'),
+                      creativity=request.POST.get('creativity'),
+                      originality=request.POST.get('originality'),
+                      submission=submission)
+
+    return redirect('index')
 
 def _rank_submission(submission, ideal_values):
     """Ranks a submission by ideal values

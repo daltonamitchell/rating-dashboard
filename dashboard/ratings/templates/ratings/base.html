@@ -10,12 +10,14 @@
 
   <body>
     <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header"><a class="navbar-brand">GJ</a></div>
+      <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="{% url 'index' %}">GJ</a></div>
 
         <div class="navbar-right">
           <ul class="nav navbar-nav">
-            {% block navlinks %}{% endblock %}
+            {% block navlinks %}
+            <li><a href="{% url 'new' %}">New Submission</a></li>
+            {% endblock %}
           </ul>
         </div>
       </div>

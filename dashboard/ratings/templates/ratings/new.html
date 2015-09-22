@@ -1,0 +1,46 @@
+{% extends "ratings/base.html" %}
+
+{% block title %}Add new submission{% endblock title %}
+
+{% block content %}
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="page-header">
+      <h1>New Submission</h1>
+      <p>Add rating values to simulate a new submission. Defaults will be filled in for the other values.</p>
+    </div>
+
+    <form name="new-submission-form" method="post" action="{% url 'store' %}">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="code-quality">Code Quality:</label>
+        <input type="number" class="form-control" id="code-quality-inp" name="code_quality" min="1" max="100">
+      </div>
+      <div class="form-group">
+        <label for="code-quality">Documentation:</label>
+        <input type="number" class="form-control" id="documentation-inp" name="documentation" min="1" max="100">
+      </div>
+      <div class="form-group">
+        <label for="code-quality">Problem Solving:</label>
+        <input type="number" class="form-control" id="problem_solving-inp" name="problem_solving" min="1" max="100">
+      </div>
+      <div class="form-group">
+        <label for="code-quality">Effort:</label>
+        <input type="number" class="form-control" id="effort-inp" name="effort" min="1" max="100">
+      </div>
+      <div class="form-group">
+        <label for="code-quality">Creativity:</label>
+        <input type="number" class="form-control" id="creativity-inp" name="creativity" min="1" max="100">
+      </div>
+      <div class="form-group">
+        <label for="code-quality">Originality:</label>
+        <input type="number" class="form-control" id="originality-inp" name="originality" min="1" max="100">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="reset" class="btn btn-default">Reset</button>
+    </form>
+  </div>
+</div>
+{% endblock content %}
